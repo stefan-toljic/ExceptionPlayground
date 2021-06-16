@@ -65,7 +65,7 @@ def task_1():
     print('\n1. "Dividing by 0"')      
     while True:
         try:
-            user_input = input('\n\tPlease try dividing any number with a 0. \
+            user_input = input('\n\tPlease try dividing any number with a 0: \
             \n\t(for example, type "5 / 0"){}'.format(input_message))
 
             if input_check(user_input):
@@ -77,7 +77,18 @@ def task_1():
         except Exception:
             print("Exception:\t\tAn error has occurred.")
 
-TASK_LIST = (task_1, )
+def task_2():
+    print('\n2. "Expression generating & result storing"')
+    while True:
+        try:
+            user_input = input('\n\tPlease type your expression in this format: \
+            \n\t{} operand_1, operation, operand_2 {} \
+            \n\t(for example, type "2, +, 3"){}'.format('{', '}', input_message))
+        
+        except Exception:
+            print("Exception:\t\tAn error has occurred.")
+
+TASK_LIST = (task_2, )
 
 for task in TASK_LIST:
     task()
