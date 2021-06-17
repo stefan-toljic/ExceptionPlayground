@@ -19,13 +19,13 @@ def input_check(input):
     try:
         input_list = [int(n) for n in input.replace(' ', '').split('/')]
     except ValueError:
-        print("\nValueError:\t\tPlease use whole numbers.")
+        print("\nValueError:\t\tPlease use whole numbers as operands.")
         return False
 
     # 2. Formatted input check
     check_list = (
         (len(input_list) == 2, "too many operands"),
-        (input_list[-1] == 0, "0 not divisor")
+        (input_list[-1] == 0, "divisor not 0")
     )
     
     for check, message in check_list:
