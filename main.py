@@ -4,46 +4,34 @@ This program showcases what triggers various exceptions and how errors get handl
 
 print("Welcome to the Exception playground.")
 
-base_message = "\n[invalid_input: {}]"
-
-def symbol_check(input, symbol, msg):
-    if symbol in input:
+def generic_check(check, message):
+    if check:
         return True
-    print(base_message.format(msg))
+    print("\n[invalid_input: {}]".format(message))
     return False
 
-def division_check(input):
-    return symbol_check(input, '/', "no division operator")
+def input_check(input):
+    # 1. Unformatted input check
+    if not generic_check('/' in input, "no division operator"):
+        return False
 
-def zero_check(input):
-    return symbol_check(input, '0', "no 0 operand")
-
-def format_check(input):
+    input_list = []
     try:
         input_list = [int(n) for n in input.replace(' ', '').split('/')]
     except ValueError:
-        print("\nValueError:\t\tDivision only works with numbers.")
-
-    if len(input_list) != 2:
-        print(base_message.format("too many operands"))
+        print("\nValueError:\t\tPlease use whole numbers.")
         return False
 
-    if input_list[-1] != 0:
-        print(base_message.format("0 not divisor"))
-        return False
-
-    if type(input_list[0]) != int:
-        print(base_message.format("divident not integer"))
-        return False
-
-    return True
-
-CHECK_LIST = (division_check, zero_check, format_check)    
-
-def input_check(input):
-    for check in CHECK_LIST:
-        if not check(input):
+    # 2. Formatted input check
+    check_list = (
+        (len(input_list) == 2, "too many operands"),
+        (input_list[-1] == 0, "0 not divisor")
+    )
+    
+    for check, message in check_list:
+        if not generic_check(check, message):
             return False
+
     return True
 
 CONTINUE = 'c'
@@ -64,31 +52,16 @@ def prompt_1():
 def task_1():
     print('\n1. "Dividing by 0"')      
     while True:
-        try:
-            user_input = input('\n\tPlease try dividing any number with a 0: \
-            \n\t(for example, type "5 / 0"){}'.format(input_message))
+          user_input = input('\n\tPlease try dividing any number with a 0. \
+           \n\t(for example, type "5 / 0"){}'.format(input_message))
 
-            if input_check(user_input):
-                print("\nSuccess! Unfortunately, you can't divide numbers by 0.")
+          if input_check(user_input):
+              print("\nSuccess! Unfortunately, you can't divide numbers by 0.")
 
-                if prompt_1():
-                    break  
+              if prompt_1():
+                  break  
 
-        except Exception:
-            print("Exception:\t\tAn error has occurred.")
-
-def task_2():
-    print('\n2. "Expression generating & result storing"')
-    while True:
-        try:
-            user_input = input('\n\tPlease type your expression in this format: \
-            \n\t{} operand_1, operation, operand_2 {} \
-            \n\t(for example, type "2, +, 3"){}'.format('{', '}', input_message))
-        
-        except Exception:
-            print("Exception:\t\tAn error has occurred.")
-
-TASK_LIST = (task_2, )
+TASK_LIST = (task_1, )
 
 for task in TASK_LIST:
     task()
