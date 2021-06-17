@@ -1,5 +1,9 @@
 """
 This program showcases what triggers various exceptions and how errors get handled.
+
+Playground map:
+  1. "Dividing by 0"            Un/formatted input handling.
+  2. "Expressions & results"    Arithmetic expression generating & result storing.
 """
 
 print("Welcome to the Exception playground.")
@@ -33,32 +37,30 @@ def input_check(input):
             return False
 
     return True
+    
+INPUT_MESSAGE = "\n\n\tInput:\t"
 
-CONTINUE = 'c'
-KEEP_TESTING = 't'
-
-input_message = "\n\n\tInput:\t"
-
-def prompt_1():
+def prompt():
+    
     while True:
         user_input = input("\n\tContinue or keep testing?\tC / T{}"
-        .format(input_message))
+        .format(INPUT_MESSAGE))
 
-        if user_input.lower() == CONTINUE:
+        if user_input.lower() == 'c':
             return True
-        elif user_input.lower() == KEEP_TESTING:
+        elif user_input.lower() == 't':
             return False 
 
 def task_1():
     print('\n1. "Dividing by 0"')      
     while True:
           user_input = input('\n\tPlease try dividing any number with a 0. \
-           \n\t(for example, type "5 / 0"){}'.format(input_message))
+          \n\t(for example, type "5 / 0"){}'.format(INPUT_MESSAGE))
 
           if input_check(user_input):
               print("\nSuccess! Unfortunately, you can't divide numbers by 0.")
 
-              if prompt_1():
+              if prompt():
                   break  
 
 TASK_LIST = (task_1, )
